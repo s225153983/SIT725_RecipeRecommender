@@ -1,23 +1,30 @@
 const chai = require("chai");
-const chaiHttp = require("chai-http");
-
 const { expect } = chai;
-chai.use(chaiHttp);
 
 const BASE_URL = "http://localhost:3000";
 
 describe("API contract tests", () => {
-
   describe("Auth endpoints", () => {
     it("POST /api/auth/login returns expected keys", async () => {
-      const res = await chai
-        .request(BASE_URL)
-        .post("/api/auth/login")
-        .send({ username: "test", password: "test" });
+      const res = await fetch(`${BASE_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: "test", password: "test" }),
+      });
 
-      expect(res).to.have.status.within(200, 401);
-      expect(res.body).to.be.an("object");
-      expect(res.body).to.have.any.keys("token", "message");
+      expect(res.status).to.be.within(200, 401);
+
+      let body = {};
+      try {
+        body = await res.json();
+      } catch (e) {
+        body = {};
+      }
+
+      expect(body).to.be.an("object");
+      expect(Object.keys(body)).to.satisfy(
+        (keys) => keys.includes("token") || keys.includes("message")
+      );
     });
   });
 });
