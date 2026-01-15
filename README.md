@@ -1,10 +1,3 @@
-Perfect — below is a **single, cohesive README** that cleanly explains **the AI recipe feature**, **authentication**, and **database integration** as *one system*.
-You can use this as your **main project README** or paste it into an existing one.
-
-It’s written at **HD level**: clear structure, rationale, setup, and future scope.
-
----
-
 # Recipe AI – Smart Recipe Recommendations
 
 ## Overview
