@@ -78,3 +78,13 @@ app.get("/dashboard", (req, res) => {
 });
 
 module.exports = app;
+
+/**
+ * Create /api/student endpoint
+ */
+app.get("/api/student", (req, res) => {
+  res.json({
+    name: "Han Fey Yap",
+    studentId: "225153983"
+  });
+});
