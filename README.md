@@ -88,7 +88,8 @@ GEMINI_MODEL=gemini-2.5-flash
 
 ---
 
-# Running the Application with Docker
+
+## Running the Application with Docker
 
 ## Prerequisites
 
