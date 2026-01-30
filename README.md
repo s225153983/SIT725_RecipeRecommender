@@ -190,6 +190,7 @@ http://localhost:3000/dashboard
 
 Successful access confirms that the application is running correctly inside Docker.
 
+```
 
 ## Accessing the Application
 
