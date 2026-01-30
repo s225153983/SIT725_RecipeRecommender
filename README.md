@@ -85,9 +85,9 @@ Example `.env` file contents:
 ```env
 GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_MODEL=gemini-2.5-flash
+```
 
 ---
-
 
 ## Running the Application with Docker
 
