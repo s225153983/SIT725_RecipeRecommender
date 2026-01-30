@@ -95,15 +95,100 @@ GEMINI_MODEL=gemini-2.5-flash
 - Docker Desktop installed and running
 - Git
 
-## Starting the Application
+## How to Dockerise the Application
 
-From the directory containing `docker-compose.yml`:
+This application has been dockerised using Docker and Docker Compose to enable an end-to-end, reproducible deployment that includes both the backend server and the database.
+
+The dockerisation process consists of the following steps.
+
+---
+
+### Step 1: Create a Dockerfile for the Backend
+
+A Dockerfile is used to containerise the Node.js and Express backend.
+
+The Dockerfile is located at:
+
+server/Dockerfile
+
+
+This Dockerfile:
+- Uses an official Node.js base image
+- Installs backend dependencies
+- Copies the server and client source code into the container
+- Exposes port 3000
+- Starts the application using `node server.js`
+
+This ensures the backend runs in a controlled and consistent environment.
+
+---
+
+### Step 2: Define Services Using Docker Compose
+
+Docker Compose is used to define and orchestrate multiple services required by the application.
+
+The Compose file is located at:
+
+docker-compose.yml
+
+
+It defines two services:
+
+- **server**  
+  Runs the Node.js and Express application
+
+- **mongo**  
+  Runs a MongoDB database container with persistent storage using Docker volumes
+
+Docker Compose also:
+- Sets up a shared network between services
+- Injects required environment variables
+- Maps container ports to the host machine
+
+---
+
+### Step 3: Configure Environment Variables
+
+Sensitive configuration values (such as API keys) are provided using environment variables rather than hard-coded values.
+
+These variables are defined in a `.env` file, which is excluded from version control. For assessment purposes, the `.env` file is provided separately via OnTrack.
+
+Docker Compose automatically loads these variables at runtime and passes them to the application container.
+
+---
+
+### Step 4: Build and Run the Containers
+
+From the directory containing `docker-compose.yml`, the application is built and started using:
 
 ```bash
 docker compose up --build
-```
 
-Docker Compose will build the Node.js server image, pull the MongoDB image, and start both containers.
+This command:
+
+Builds the Node.js application image
+
+Pulls the MongoDB image if not already available
+
+Starts both containers
+
+Connects the services using Docker networking
+
+Step 5: Verify the Deployment
+
+Once Docker Compose is running, the application can be verified by:
+
+Opening the application in a browser at:
+
+http://localhost:3000
+
+
+Accessing the dashboard at:
+
+http://localhost:3000/dashboard
+
+Successful access confirms that the application is running correctly inside Docker.
+
 
 ## Accessing the Application
 
@@ -111,6 +196,20 @@ Once running, the application can be accessed via:
 
 - http://localhost:3000
 - http://localhost:3000/dashboard
+
+
+Step 6: Stop and Re-run the Application
+
+To stop the running containers:
+
+docker compose down
+
+
+To rebuild and restart the application after changes:
+
+docker compose up --build
+
+MongoDB data persists across restarts using Docker volumes unless explicitly removed.
 
 ## Database-Backed Feature Verification
 
